@@ -1,17 +1,9 @@
-from numpy.random import random
-from bokeh.io import curdoc
-from bokeh.plotting import figure
-from bokeh.layouts import column, widgetbox
-from bokeh.models import Button, ColumnDataSource
+from flask import Flask
+app = Flask(__name__)
 
-fig = figure(title='random data', width=500, height=200,
-             tools='pan,box_zoom,reset,save')
+@app.route("/")
+def hello():
+    return "<h1 style='color:blue'>Hello There!</h1>"
 
-source = ColumnDataSource(data={'x': [], 'y': []})
-fig.line('x', 'y', source=source)
-
-def click(n=100):
-    source.data = {'x': range(n), 'y': random(n)}
-
-button = Button(label='update', button_type='success')
-button.on_click(click)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')

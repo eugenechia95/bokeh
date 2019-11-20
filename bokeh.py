@@ -1,9 +1,9 @@
-from flask import Flask
-app = Flask(__name__)
+from flask import Flask, render_template
+from bokeh.embed import server_document
 
-@app.route("/")
-def hello():
-    return "<h1 style='color:blue'>Hello There!</h1>"
+application = Flask(__name__)
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+@application.route("/")
+def index():
+    tag = server_document(url=r'/bokeh', relative_urls=True)
+    return render_template('index.html', tag=tag)
